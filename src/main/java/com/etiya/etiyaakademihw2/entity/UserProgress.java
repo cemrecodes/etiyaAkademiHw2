@@ -13,5 +13,4 @@ public class UserProgress {
     private Long courseId;
     private Long completionRate;
     private Boolean finished;
-
 }

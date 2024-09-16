@@ -3,6 +3,8 @@ package com.etiya.etiyaakademihw2.controller;
 import com.etiya.etiyaakademihw2.entity.Course;
 import com.etiya.etiyaakademihw2.service.CourseService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,27 +17,36 @@ public class CourseController {
     private final CourseService courseService;
 
     @PostMapping
-    public Course saveCourse(Course course){
-        return courseService.saveCourse(course);
+    public ResponseEntity<Course> saveCourse(Course course){
+        return ResponseEntity.status(HttpStatus.CREATED).body(courseService.saveCourse(course));
     }
 
     @DeleteMapping
-    public void deleteCourse(Long courseId){
+    public ResponseEntity<String> deleteCourse(Long courseId){
         courseService.deleteCourse(courseId);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Successfully deleted.");
     }
 
     @PutMapping
-    public Optional<Course> updateCourse(Course course){
-        return courseService.updateCourse(course);
+    public ResponseEntity<?> updateCourse(Course course){
+        Optional<Course> updatedCourse = courseService.updateCourse(course);
+        if(updatedCourse.isPresent()){
+            return ResponseEntity.status(HttpStatus.OK).body(updatedCourse.get());
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course doesn't exist.");
     }
 
     @GetMapping(value = "/{id}")
-    public Optional<Course> getCourse(@PathVariable Long id){
-        return courseService.getCourse(id);
+    public ResponseEntity<?> getCourse(@PathVariable Long id){
+        Optional<Course> foundCourse = courseService.getCourse(id);
+        if(foundCourse.isPresent()){
+            return ResponseEntity.status(HttpStatus.OK).body(foundCourse.get());
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course doesn't exist.");
     }
 
     @GetMapping
-    public List<Course> getAllCourses(){
-        return courseService.getAllCourses();
+    public ResponseEntity<List<Course>> getAllCourses(){
+        return ResponseEntity.status(HttpStatus.OK).body(courseService.getAllCourses());
     }
 }

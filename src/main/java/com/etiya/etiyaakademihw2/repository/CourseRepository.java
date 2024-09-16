@@ -32,7 +32,6 @@ public class CourseRepository {
 
     }
 
-    // todo olmayan bir nesne ise mesaj basmalı mı? ( su an duzgun calisiyor)
     public Optional<Course> update(Course course) {
         int index = 0;
 
@@ -57,7 +56,6 @@ public class CourseRepository {
     }
 
     public List<Course> getAll() {
-        // todo fiyatı 0 ise FREE mi yazmalı? ama o zaman String tutmak gerek
         return courseList;
     }
 }

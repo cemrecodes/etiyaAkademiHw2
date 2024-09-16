@@ -8,5 +8,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class Comment {
+    private Long id;
+    private Long userId;
+    private String commentText;
 
 }
