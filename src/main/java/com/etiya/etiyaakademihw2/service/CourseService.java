@@ -1,7 +1,7 @@
 package com.etiya.etiyaakademihw2.service;
 
 import com.etiya.etiyaakademihw2.entity.Course;
-import com.etiya.etiyaakademihw2.repository.CourseRepository;
+import com.etiya.etiyaakademihw2.repository.InMemoryCourseRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class CourseService {
 
-    private final CourseRepository courseRepository;
+    private final InMemoryCourseRepository inMemoryCourseRepository;
     private static Long idStart = 0L;
     @PostConstruct
     public void init() {
@@ -43,27 +43,24 @@ public class CourseService {
     public Course saveCourse(Course course){
         course.setId(idStart + 1);
         idStart = idStart + 1;
-        return courseRepository.save(course);
+        return inMemoryCourseRepository.save(course);
     }
 
     public void deleteCourse(Long courseId){
-        courseRepository.delete(courseId);
+        inMemoryCourseRepository.delete(courseId);
     }
 
     public Optional<Course> updateCourse(Course course){
 
-        return courseRepository.update(course);
+        return inMemoryCourseRepository.update(course);
     }
 
     public Optional<Course> getCourse(Long id){
-        return courseRepository.getCourseById(id);
+        return inMemoryCourseRepository.getCourseById(id);
     }
 
     public List<Course> getAllCourses(){
-        return courseRepository.getAll();
+        return inMemoryCourseRepository.getAll();
     }
-
-
-
 
 }
