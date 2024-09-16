@@ -1,2 +1,12 @@
-package com.etiya.etiyaakademihw2.entity;public class Comment {
+package com.etiya.etiyaakademihw2.entity;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+public class Comment {
+
 }
